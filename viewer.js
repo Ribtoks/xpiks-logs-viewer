@@ -2,6 +2,14 @@ function strStartsWith(str, prefix) {
     return str.indexOf(prefix) === 0;
 }
 
+function loadScript(url, callback) {
+    var script = document.createElement("script");
+    script.type = 'text/javascript';
+    script.src = url;
+    script.onload = callback
+    document.head.appendChild(script);
+}
+
 function rot47(x) {
     var s=[];
     for(var i=0;i<x.length;i++) {
@@ -190,7 +198,27 @@ function resetFiltering() {
     filterLogs();
 }
 
+function loadLogFromJsFile() {
+    if (typeof logsVariable !== "undefined") {
+        var text = logsVariable;
+        var textDisplayArea = document.getElementById('textDisplayArea');
+        clearPreviousEntries(textDisplayArea);
+        var decode = document.getElementById("decryptCheckbox").checked;
+        parseXpiksLogs(textDisplayArea, text, decode);
+        textDisplayArea.style.visibility = "visible";
+        $(".brd").css({"visibility" : "visible"});
+
+        $(".debug, .info").css({
+            "visibility" : "hidden",
+            "display" : "none"
+        } );
+    }
+}
+
+
 window.onload = function() {
+    loadScript('current-log.js', loadLogFromJsFile);
+
     var fileInput = document.getElementById('files');
     var dropZone = document.getElementById('box');
 
