@@ -122,18 +122,22 @@ function clearPreviousEntries(element) {
     }
 }
 
+function prepareAndPublishLogs(text) {
+    var textDisplayArea = document.getElementById('textDisplayArea');
+    clearPreviousEntries(textDisplayArea);
+    var decode = document.getElementById("decryptCheckbox").checked;
+    parseXpiksLogs(textDisplayArea, text, decode);
+    textDisplayArea.style.visibility = "visible";
+    $(".brd").css({"visibility" : "visible"});
+}
+
 function readAndPublish(file) {
     var label = document.getElementById('inputlabel');
-    var textDisplayArea = document.getElementById('textDisplayArea');
 
     var reader = new FileReader();
-
     reader.onload = function(e) {
         var text = reader.result;
-        clearPreviousEntries(textDisplayArea);
-        var decode = document.getElementById("decryptCheckbox").checked;
-        parseXpiksLogs(textDisplayArea, text, decode);
-        textDisplayArea.style.visibility = "visible";
+        prepareAndPublishLogs(text);
         label.querySelector('span').innerHTML = 'File: ' + file.name;
     };
 
@@ -150,13 +154,8 @@ function handleDragDrop(event) {
         var f = event.dataTransfer.files[0];
         readAndPublish(f);
     } else {
-        var textDisplayArea = document.getElementById('textDisplayArea');
         var text = event.dataTransfer.getData('text');
-        clearPreviousEntries(textDisplayArea);
-        var decode = document.getElementById("decryptCheckbox").checked;
-        parseXpiksLogs(textDisplayArea, text, decode);
-        textDisplayArea.style.visibility = "visible";
-        $(".brd").css({"visibility" : "visible"});
+        prepareAndPublishLogs(text);
     }
 
     $('.upload-cont').css('border', '');
@@ -201,12 +200,7 @@ function resetFiltering() {
 function loadLogFromJsFile() {
     if (typeof logsVariable !== "undefined") {
         var text = logsVariable;
-        var textDisplayArea = document.getElementById('textDisplayArea');
-        clearPreviousEntries(textDisplayArea);
-        var decode = document.getElementById("decryptCheckbox").checked;
-        parseXpiksLogs(textDisplayArea, text, decode);
-        textDisplayArea.style.visibility = "visible";
-        $(".brd").css({"visibility" : "visible"});
+        prepareAndPublishLogs(text);
 
         $(".debug, .info").css({
             "visibility" : "hidden",
@@ -240,13 +234,8 @@ window.onload = function() {
         e.preventDefault();
         e.stopPropagation();
         // Short pause to wait for paste to complete
-        var textDisplayArea = document.getElementById('textDisplayArea');
         var text = e.originalEvent.clipboardData.getData('text');
-        clearPreviousEntries(textDisplayArea);
-        var decode = document.getElementById("decryptCheckbox").checked;
-        parseXpiksLogs(textDisplayArea, text, decode);
-        textDisplayArea.style.visibility = "visible";
-        $(".brd").css({"visibility" : "visible"});
+        prepareAndPublishLogs(text);
     });
 };
 
