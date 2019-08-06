@@ -8,6 +8,7 @@ body {
 
 #inputlabel {
     display: inline;
+    float: right:
 }
 
 .inputfile {
@@ -22,7 +23,6 @@ body {
 }
 
 .filtertext {
-    margin-left: 40px;
     display: inline;
 }
 
