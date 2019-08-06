@@ -117,8 +117,8 @@ function parseXpiksLogs(parent, text, decode) {
 }
 
 function clearPreviousEntries(element) {
-    while (element.firstChild) {
-        element.removeChild(element.firstChild);
+    while (element.lastChild) {
+        element.removeChild(element.lastChild);
     }
 }
 
@@ -205,7 +205,7 @@ function loadLogFromJsFile() {
         $(".debug, .info").css({
             "visibility" : "hidden",
             "display" : "none"
-        } );
+        });
     }
 }
 
