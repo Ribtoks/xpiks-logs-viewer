@@ -18,11 +18,11 @@ body {
 }
 
 .decrypt {
-    margin-left: 40px;
     display: inline;
 }
 
 .filtertext {
+    margin-left: 40px;
     display: inline;
 }
 
