@@ -209,7 +209,6 @@ function loadLogFromJsFile() {
     }
 }
 
-
 window.onload = function() {
     loadScript('current-log.js', loadLogFromJsFile);
 
